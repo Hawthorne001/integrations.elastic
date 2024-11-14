@@ -1,4 +1,4 @@
-FROM golang:1.21
+FROM golang:1.23.3
 
 RUN go install github.com/andrewkroh/go-examples/akamai-siem-emulator@80b18780e7
 
