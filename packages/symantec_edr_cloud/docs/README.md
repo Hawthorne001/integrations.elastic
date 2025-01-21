@@ -1,4 +1,6 @@
-# Symantec EDR Cloud
+# Symantec EDR Cloud (deprecated)
+
+This integration has been deprecated. We recommend using the [Symantec Endpoint Security integration](https://www.elastic.co/docs/current/integrations/symantec_endpoint_security) instead.
 
 Symantec Endpoint Security is the fully cloud-managed version of the on-premises Symantec Endpoint Protection (SEP), which delivers multilayer protection to stop threats regardless of how they attack your endpoints. You manage Symantec Endpoint Security through a unified cloud console that provides threat visibility across your endpoints and uses multiple technologies to manage the security of your organization.
 
@@ -30,7 +32,6 @@ You can run Elastic Agent inside a container, either with Fleet Server or standa
 
 There are some minimum requirements for running Elastic Agent and for more information, refer to the link [here](https://www.elastic.co/guide/en/fleet/current/elastic-agent-installation.html).
 
-The minimum **Kibana version** required is **8.10.1**.  
 This module has been tested against the **Symantec EDR Cloud API Version v1**.
 
 ## Setup
@@ -175,7 +176,6 @@ An example event for `incident` looks as following:
         "scheme": "https"
     }
 }
-
 ```
 
 **Exported fields**
@@ -225,5 +225,4 @@ An example event for `incident` looks as following:
 | symantec_edr_cloud.incident.type | Event type. | keyword |
 | symantec_edr_cloud.incident.type_id |  | keyword |
 | symantec_edr_cloud.incident.version | API version in the form major.minor. | keyword |
-| tags | User defined tags. | keyword |
 

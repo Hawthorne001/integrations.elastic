@@ -2,6 +2,8 @@
 
 {{#if bucket_arn}}
 bucket_arn: {{bucket_arn}}
+{{else if access_point_arn}}
+access_point_arn: {{access_point_arn}}
 {{/if}}
 {{#if number_of_workers}}
 number_of_workers: {{number_of_workers}}
@@ -35,6 +37,12 @@ credential_profile_name: {{credential_profile_name}}
 {{/if}}
 {{#if shared_credential_file}}
 shared_credential_file: {{shared_credential_file}}
+{{/if}}
+{{#if endpoint}}
+endpoint: {{endpoint}}
+{{/if}}
+{{#if region}}
+region: {{region}}
 {{/if}}
 {{#if default_region}}
 default_region: {{default_region}}
@@ -70,4 +78,7 @@ publisher_pipeline.disable_host: true
 {{#if processors}}
 processors:
 {{processors}}
+{{/if}}
+{{#if custom}}
+{{custom}}
 {{/if}}

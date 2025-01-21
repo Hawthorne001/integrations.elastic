@@ -357,6 +357,47 @@ processors:
           ignore_missing: true
       ignore_missing: true
       ignore_failure: true
+
+  - script:
+      description: Flatten arrays of arrays.
+      tag: flatten_array
+      lang: painless
+      source: |
+        def flatten(def aa) {
+          if (!(aa instanceof List)) {
+            if (aa instanceof String) {
+              return aa;
+            }
+            return null;
+          }
+          if (aa.length == 1) {
+            // Ensure lexical ordering is consistent between single array optimisation and full set extraction.
+            Collections.sort(aa[0]);
+            return aa[0];
+          }
+          def set = new HashSet();
+          for (def a: aa) {
+            for (def e: a) {
+              set.add(e);
+            }
+          }
+          def list = new ArrayList();
+          for (def e: set) {
+            list.add(e);
+          }
+          Collections.sort(list);
+          return list;
+        }
+
+        if (ctx.json?.indicators != null) {
+          for (int i; i < ctx.json.indicators.length; i++) {
+            if (ctx.json.indicators[i].fields == null) {
+              continue;
+            } 
+            ctx.json.indicators[i].fields = flatten(ctx.json.indicators[i].fields);
+          }
+        }
+
   - rename:
       field: json.indicators
       target_field: trend_micro_vision_one.alert.indicators
@@ -534,11 +575,6 @@ processors:
       if: ctx.tags == null || !(ctx.tags.contains('preserve_duplicate_custom_fields'))
       ignore_failure: true
       ignore_missing: true
-  - remove:
-      field: event.original
-      if: ctx.tags == null || !(ctx.tags.contains('preserve_original_event'))
-      ignore_failure: true
-      ignore_missing: true
   - script:
       description: Drops null/empty values recursively.
       lang: painless
@@ -560,6 +596,10 @@ on_failure:
   - set:
       field: event.kind
       value: pipeline_error
+  - append:
+      field: tags
+      value: preserve_original_event
+      allow_duplicates: false
   - append:
       field: error.message
       value: '{{{ _ingest.on_failure_message }}}'

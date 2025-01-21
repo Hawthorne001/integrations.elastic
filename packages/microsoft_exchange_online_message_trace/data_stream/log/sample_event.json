@@ -1,35 +1,19 @@
 {
-    "@timestamp": "2022-09-05T18:10:13.490Z",
+    "@timestamp": "2022-10-21T17:25:30.600Z",
     "agent": {
-        "ephemeral_id": "f42c0a8e-b2c0-4772-ab85-278acafa95f5",
-        "id": "e4c29d91-bbb7-42b8-80fd-85ddb56d2300",
-        "name": "docker-fleet-agent",
+        "ephemeral_id": "1928ec83-7c3a-4ad0-9066-63dae084a2e1",
+        "id": "bd32c689-9c8b-44ea-ae34-b04c1bf3fd7d",
+        "name": "elastic-agent-75168",
         "type": "filebeat",
-        "version": "8.8.2"
+        "version": "8.15.3"
     },
     "data_stream": {
         "dataset": "microsoft_exchange_online_message_trace.log",
-        "namespace": "ep",
+        "namespace": "89156",
         "type": "logs"
     },
     "destination": {
-        "as": {
-            "number": 209
-        },
         "domain": "contoso.com",
-        "geo": {
-            "city_name": "Milton",
-            "continent_name": "North America",
-            "country_iso_code": "US",
-            "country_name": "United States",
-            "location": {
-                "lat": 47.2513,
-                "lon": -122.3149
-            },
-            "region_iso_code": "US-WA",
-            "region_name": "Washington"
-        },
-        "ip": "216.160.83.56",
         "registered_domain": "contoso.com",
         "top_level_domain": "com",
         "user": {
@@ -43,25 +27,25 @@
         "version": "8.11.0"
     },
     "elastic_agent": {
-        "id": "e4c29d91-bbb7-42b8-80fd-85ddb56d2300",
+        "id": "bd32c689-9c8b-44ea-ae34-b04c1bf3fd7d",
         "snapshot": false,
-        "version": "8.8.2"
+        "version": "8.15.3"
     },
     "email": {
         "attachments": {
             "file": {
-                "size": 87891
+                "size": 22704
             }
         },
-        "delivery_timestamp": "2022-09-05T18:10:13.4907658",
+        "delivery_timestamp": "2022-10-21T17:25:30.6006882Z",
         "from": {
             "address": [
-                "azure-noreply@microsoft.com"
+                "noreply@azure.microsoft.com"
             ]
         },
-        "local_id": "cf7a249a-5edd-4350-130a-08da8f69e0f6",
-        "message_id": "<a210cf91-4f2e-484c-8ada-3b27064ee5e3@az.uksouth.production.microsoft.com>",
-        "subject": "PIM: A privileged directory role was assigned outside of PIM",
+        "local_id": "a6f62809-5cda-4454-0962-08dab38940d6",
+        "message_id": "<GVAP278MB037518E76F4082DFE9B607B3DA2D9@GVAP278MB0375.CHEP278.PROD.OUTLOOK.COM>",
+        "subject": "testmail 1",
         "to": {
             "address": [
                 "linus@contoso.com"
@@ -70,65 +54,59 @@
     },
     "event": {
         "agent_id_status": "verified",
-        "created": "2023-07-24T14:46:09.199Z",
+        "category": [
+            "email"
+        ],
+        "created": "2024-11-04T20:39:54.654Z",
         "dataset": "microsoft_exchange_online_message_trace.log",
-        "end": "2022-09-06T09:01:46.036Z",
-        "ingested": "2023-07-24T14:46:12Z",
-        "original": "{\"EndDate\":\"2022-09-06T09:01:46.0369423Z\",\"FromIP\":\"81.2.69.144\",\"Index\":0,\"MessageId\":\"\\u003ca210cf91-4f2e-484c-8ada-3b27064ee5e3@az.uksouth.production.microsoft.com\\u003e\",\"MessageTraceId\":\"cf7a249a-5edd-4350-130a-08da8f69e0f6\",\"Organization\":\"contoso.com\",\"Received\":\"2022-09-05T18:10:13.4907658\",\"RecipientAddress\":\"linus@contoso.com\",\"SenderAddress\":\"azure-noreply@microsoft.com\",\"Size\":87891,\"StartDate\":\"2022-09-04T09:01:46.0369423Z\",\"Status\":\"Delivered\",\"Subject\":\"PIM: A privileged directory role was assigned outside of PIM\",\"ToIP\":\"216.160.83.56\"}",
-        "outcome": "Delivered",
-        "start": "2022-09-04T09:01:46.036Z"
+        "end": "2022-10-22T09:40:10.000Z",
+        "ingested": "2024-11-04T20:39:57Z",
+        "original": "{\"EndDate\":\"2022-10-22T09:40:10Z\",\"FromIP\":\"40.107.23.81\",\"Index\":1,\"MessageId\":\"\\u003cGVAP278MB037518E76F4082DFE9B607B3DA2D9@GVAP278MB0375.CHEP278.PROD.OUTLOOK.COM\\u003e\",\"MessageTraceId\":\"a6f62809-5cda-4454-0962-08dab38940d6\",\"Organization\":\"contoso.com\",\"Received\":\"2022-10-21T17:25:30.6006882Z\",\"RecipientAddress\":\"linus@contoso.com\",\"SenderAddress\":\"noreply@azure.microsoft.com\",\"Size\":22704,\"StartDate\":\"2022-10-21T09:40:10Z\",\"Status\":\"Delivered\",\"Subject\":\"testmail 1\",\"ToIP\":null}",
+        "outcome": "success",
+        "start": "2022-10-21T09:40:10.000Z",
+        "type": [
+            "info"
+        ]
     },
     "input": {
         "type": "httpjson"
     },
     "microsoft": {
         "online_message_trace": {
-            "EndDate": "2022-09-06T09:01:46.0369423Z",
-            "FromIP": "81.2.69.144",
-            "Index": 0,
-            "MessageId": "<a210cf91-4f2e-484c-8ada-3b27064ee5e3@az.uksouth.production.microsoft.com>",
-            "MessageTraceId": "cf7a249a-5edd-4350-130a-08da8f69e0f6",
+            "EndDate": "2022-10-22T09:40:10Z",
+            "FromIP": "40.107.23.81",
+            "Index": 1,
+            "MessageId": "<GVAP278MB037518E76F4082DFE9B607B3DA2D9@GVAP278MB0375.CHEP278.PROD.OUTLOOK.COM>",
+            "MessageTraceId": "a6f62809-5cda-4454-0962-08dab38940d6",
             "Organization": "contoso.com",
-            "Received": "2022-09-05T18:10:13.4907658",
+            "Received": "2022-10-21T17:25:30.6006882Z",
             "RecipientAddress": "linus@contoso.com",
-            "SenderAddress": "azure-noreply@microsoft.com",
-            "Size": 87891,
-            "StartDate": "2022-09-04T09:01:46.0369423Z",
+            "SenderAddress": "noreply@azure.microsoft.com",
+            "Size": 22704,
+            "StartDate": "2022-10-21T09:40:10Z",
             "Status": "Delivered",
-            "Subject": "PIM: A privileged directory role was assigned outside of PIM",
-            "ToIP": "216.160.83.56"
+            "Subject": "testmail 1"
         }
     },
     "related": {
         "user": [
             "linus@contoso.com",
-            "azure-noreply@microsoft.com",
+            "noreply@azure.microsoft.com",
             "linus",
-            "azure-noreply"
+            "noreply"
         ]
     },
     "source": {
-        "domain": "microsoft.com",
-        "geo": {
-            "city_name": "London",
-            "continent_name": "Europe",
-            "country_iso_code": "GB",
-            "country_name": "United Kingdom",
-            "location": {
-                "lat": 51.5142,
-                "lon": -0.0931
-            },
-            "region_iso_code": "GB-ENG",
-            "region_name": "England"
-        },
-        "ip": "81.2.69.144",
+        "domain": "azure.microsoft.com",
+        "ip": "40.107.23.81",
         "registered_domain": "microsoft.com",
+        "subdomain": "azure",
         "top_level_domain": "com",
         "user": {
-            "domain": "microsoft.com",
-            "email": "azure-noreply@microsoft.com",
-            "id": "azure-noreply@microsoft.com",
-            "name": "azure-noreply"
+            "domain": "azure.microsoft.com",
+            "email": "noreply@azure.microsoft.com",
+            "id": "noreply@azure.microsoft.com",
+            "name": "noreply"
         }
     },
     "tags": [

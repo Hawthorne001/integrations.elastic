@@ -1,16 +1,16 @@
 format_version: 3.0.2
 name: symantec_edr_cloud
-title: Symantec EDR Cloud
-version: "1.1.0"
+title: Symantec EDR Cloud (Deprecated)
+version: "1.8.0"
 source:
   license: Elastic-2.0
-description: Collect logs from Symantec EDR Cloud with Elastic Agent.
+description: Deprecated. Use the Symantec Endpoint Security package instead.
 type: integration
 categories:
   - security
 conditions:
   kibana:
-    version: ^8.12.0
+    version: "^8.13.0"
   elastic:
     subscription: basic
 screenshots:

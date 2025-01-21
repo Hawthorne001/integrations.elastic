@@ -21,7 +21,7 @@ request.transforms:
       value: 'Bearer {{api_token}}'
   - set:
       target: url.params.top
-      value: '200'
+      value: '{{page_size}}'
   - set:
       target: url.params.startDateTime
       value: '[[formatDate (parseDate .cursor.last_update_at)]]'
@@ -45,6 +45,7 @@ cursor:
     value: '[[.last_response.url.params.Get "endDateTime"]]'
 response.split:
   target: body.items
+  ignore_empty_value: true
 tags:
 {{#if preserve_original_event}}
   - preserve_original_event

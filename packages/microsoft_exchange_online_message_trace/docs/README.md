@@ -21,17 +21,12 @@ The `log` dataset collects the Microsoft Exchange Online Message Trace logs. To 
 ## Configuring with OAuth2
 In order to continue using the Microsoft Exchange Online Message Trace you will need to enable and configure OAuth2 authentication via your service app.
 - ### Service App Configuration  
-    1) In the [Azure portal](https://portal.azure.com/), create a Microsoft Entra App(service app) Registration. For details please refer to the official [Microsoft Documentation](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
+    1) In the [Azure portal](https://portal.azure.com/), create a Microsoft Entra App (service app) Registration. For details please refer to the official [Microsoft Documentation](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
     2) In most cases under the `Redirect URI` section, you would want to configure the value `Web` for the `app type` and `http://localhost` for the `Redirect URI`, unless there are some specific requirements on your end.
-    3) Assign the application at least one Microsoft Entra(Azure AD) role that will enable it to access the Reporting Web Service:
-
+    3) Assign the application at least one Microsoft Entra (Azure AD) role that will enable it to access the Reporting Web Service:
         - Security Reader
         - Global Reader
-        - Global Administrator
-        - Exchange Administrator
-    
-    
-    NOTE: Make sure that at least one role includes the `ReportingWebService.Read.All` permission. For detailed steps, see [Microsoft's Assign Azure AD Roles to Users](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/manage-roles-portal) topic.
+    4) The App Registration should contain the following API permissions: Office 365 Exchange Online > `ReportingWebService.Read.All` (application). See [Specify the permissions your app requires to access the Reporting Web Service](https://learn.microsoft.com/en-gb/previous-versions/office/developer/o365-enterprise-developers/jj984325(v=office.15)#specify-the-permissions-your-app-requires-to-access-the-reporting-web-service).
 
 - ### Configuring OAuth2 Credentials
   Once you have your service app registered and configured, you can now configure your OAuth2 credentials as follows:- 
@@ -50,8 +45,12 @@ In order to continue using the Microsoft Exchange Online Message Trace you will 
 - For configuring `Local Domains` you can check your [Microsoft Admin Exchange Center](https://admin.exchange.microsoft.com/) for the domains
 available in your organization. They are usually under the sections [Accepted Domains](https://admin.exchange.microsoft.com/#/accepteddomains) and [Remote Domains](https://admin.exchange.microsoft.com/#/remotedomains).
 
-- The default `Polling Interval` and `Initial Interval` values are configured to `1h`, you can however change these to your required values. The look-back 
+- The default `Interval` is configured to `1h` and `Initial Interval` to `48h`, you can however change these to your required values. The look-back 
   value of `Initial Interval` should not exceed `200 hours` as this might cause unexpected errors with the API.
+
+- The default `Minimum Age` is configured to `1h`, you can however change these to your required values. The `Minimum Age` was introduced to allow a sliding 
+  window to exist in combination with the `Initial Interval`. If you do not require a sliding window you can set this to `0s` which will cause the `Minimum Age` to 
+  always default to the `current time (now)`.
 
 - The default `Additional Look-back Time` value is configured for `1h`. 
   This is intended to capture events that may not have been initially present due to eventual consistency.
@@ -144,37 +143,21 @@ An example event for `log` looks as following:
 
 ```json
 {
-    "@timestamp": "2022-09-05T18:10:13.490Z",
+    "@timestamp": "2022-10-21T17:25:30.600Z",
     "agent": {
-        "ephemeral_id": "f42c0a8e-b2c0-4772-ab85-278acafa95f5",
-        "id": "e4c29d91-bbb7-42b8-80fd-85ddb56d2300",
-        "name": "docker-fleet-agent",
+        "ephemeral_id": "1928ec83-7c3a-4ad0-9066-63dae084a2e1",
+        "id": "bd32c689-9c8b-44ea-ae34-b04c1bf3fd7d",
+        "name": "elastic-agent-75168",
         "type": "filebeat",
-        "version": "8.8.2"
+        "version": "8.15.3"
     },
     "data_stream": {
         "dataset": "microsoft_exchange_online_message_trace.log",
-        "namespace": "ep",
+        "namespace": "89156",
         "type": "logs"
     },
     "destination": {
-        "as": {
-            "number": 209
-        },
         "domain": "contoso.com",
-        "geo": {
-            "city_name": "Milton",
-            "continent_name": "North America",
-            "country_iso_code": "US",
-            "country_name": "United States",
-            "location": {
-                "lat": 47.2513,
-                "lon": -122.3149
-            },
-            "region_iso_code": "US-WA",
-            "region_name": "Washington"
-        },
-        "ip": "216.160.83.56",
         "registered_domain": "contoso.com",
         "top_level_domain": "com",
         "user": {
@@ -188,25 +171,25 @@ An example event for `log` looks as following:
         "version": "8.11.0"
     },
     "elastic_agent": {
-        "id": "e4c29d91-bbb7-42b8-80fd-85ddb56d2300",
+        "id": "bd32c689-9c8b-44ea-ae34-b04c1bf3fd7d",
         "snapshot": false,
-        "version": "8.8.2"
+        "version": "8.15.3"
     },
     "email": {
         "attachments": {
             "file": {
-                "size": 87891
+                "size": 22704
             }
         },
-        "delivery_timestamp": "2022-09-05T18:10:13.4907658",
+        "delivery_timestamp": "2022-10-21T17:25:30.6006882Z",
         "from": {
             "address": [
-                "azure-noreply@microsoft.com"
+                "noreply@azure.microsoft.com"
             ]
         },
-        "local_id": "cf7a249a-5edd-4350-130a-08da8f69e0f6",
-        "message_id": "<a210cf91-4f2e-484c-8ada-3b27064ee5e3@az.uksouth.production.microsoft.com>",
-        "subject": "PIM: A privileged directory role was assigned outside of PIM",
+        "local_id": "a6f62809-5cda-4454-0962-08dab38940d6",
+        "message_id": "<GVAP278MB037518E76F4082DFE9B607B3DA2D9@GVAP278MB0375.CHEP278.PROD.OUTLOOK.COM>",
+        "subject": "testmail 1",
         "to": {
             "address": [
                 "linus@contoso.com"
@@ -215,65 +198,59 @@ An example event for `log` looks as following:
     },
     "event": {
         "agent_id_status": "verified",
-        "created": "2023-07-24T14:46:09.199Z",
+        "category": [
+            "email"
+        ],
+        "created": "2024-11-04T20:39:54.654Z",
         "dataset": "microsoft_exchange_online_message_trace.log",
-        "end": "2022-09-06T09:01:46.036Z",
-        "ingested": "2023-07-24T14:46:12Z",
-        "original": "{\"EndDate\":\"2022-09-06T09:01:46.0369423Z\",\"FromIP\":\"81.2.69.144\",\"Index\":0,\"MessageId\":\"\\u003ca210cf91-4f2e-484c-8ada-3b27064ee5e3@az.uksouth.production.microsoft.com\\u003e\",\"MessageTraceId\":\"cf7a249a-5edd-4350-130a-08da8f69e0f6\",\"Organization\":\"contoso.com\",\"Received\":\"2022-09-05T18:10:13.4907658\",\"RecipientAddress\":\"linus@contoso.com\",\"SenderAddress\":\"azure-noreply@microsoft.com\",\"Size\":87891,\"StartDate\":\"2022-09-04T09:01:46.0369423Z\",\"Status\":\"Delivered\",\"Subject\":\"PIM: A privileged directory role was assigned outside of PIM\",\"ToIP\":\"216.160.83.56\"}",
-        "outcome": "Delivered",
-        "start": "2022-09-04T09:01:46.036Z"
+        "end": "2022-10-22T09:40:10.000Z",
+        "ingested": "2024-11-04T20:39:57Z",
+        "original": "{\"EndDate\":\"2022-10-22T09:40:10Z\",\"FromIP\":\"40.107.23.81\",\"Index\":1,\"MessageId\":\"\\u003cGVAP278MB037518E76F4082DFE9B607B3DA2D9@GVAP278MB0375.CHEP278.PROD.OUTLOOK.COM\\u003e\",\"MessageTraceId\":\"a6f62809-5cda-4454-0962-08dab38940d6\",\"Organization\":\"contoso.com\",\"Received\":\"2022-10-21T17:25:30.6006882Z\",\"RecipientAddress\":\"linus@contoso.com\",\"SenderAddress\":\"noreply@azure.microsoft.com\",\"Size\":22704,\"StartDate\":\"2022-10-21T09:40:10Z\",\"Status\":\"Delivered\",\"Subject\":\"testmail 1\",\"ToIP\":null}",
+        "outcome": "success",
+        "start": "2022-10-21T09:40:10.000Z",
+        "type": [
+            "info"
+        ]
     },
     "input": {
         "type": "httpjson"
     },
     "microsoft": {
         "online_message_trace": {
-            "EndDate": "2022-09-06T09:01:46.0369423Z",
-            "FromIP": "81.2.69.144",
-            "Index": 0,
-            "MessageId": "<a210cf91-4f2e-484c-8ada-3b27064ee5e3@az.uksouth.production.microsoft.com>",
-            "MessageTraceId": "cf7a249a-5edd-4350-130a-08da8f69e0f6",
+            "EndDate": "2022-10-22T09:40:10Z",
+            "FromIP": "40.107.23.81",
+            "Index": 1,
+            "MessageId": "<GVAP278MB037518E76F4082DFE9B607B3DA2D9@GVAP278MB0375.CHEP278.PROD.OUTLOOK.COM>",
+            "MessageTraceId": "a6f62809-5cda-4454-0962-08dab38940d6",
             "Organization": "contoso.com",
-            "Received": "2022-09-05T18:10:13.4907658",
+            "Received": "2022-10-21T17:25:30.6006882Z",
             "RecipientAddress": "linus@contoso.com",
-            "SenderAddress": "azure-noreply@microsoft.com",
-            "Size": 87891,
-            "StartDate": "2022-09-04T09:01:46.0369423Z",
+            "SenderAddress": "noreply@azure.microsoft.com",
+            "Size": 22704,
+            "StartDate": "2022-10-21T09:40:10Z",
             "Status": "Delivered",
-            "Subject": "PIM: A privileged directory role was assigned outside of PIM",
-            "ToIP": "216.160.83.56"
+            "Subject": "testmail 1"
         }
     },
     "related": {
         "user": [
             "linus@contoso.com",
-            "azure-noreply@microsoft.com",
+            "noreply@azure.microsoft.com",
             "linus",
-            "azure-noreply"
+            "noreply"
         ]
     },
     "source": {
-        "domain": "microsoft.com",
-        "geo": {
-            "city_name": "London",
-            "continent_name": "Europe",
-            "country_iso_code": "GB",
-            "country_name": "United Kingdom",
-            "location": {
-                "lat": 51.5142,
-                "lon": -0.0931
-            },
-            "region_iso_code": "GB-ENG",
-            "region_name": "England"
-        },
-        "ip": "81.2.69.144",
+        "domain": "azure.microsoft.com",
+        "ip": "40.107.23.81",
         "registered_domain": "microsoft.com",
+        "subdomain": "azure",
         "top_level_domain": "com",
         "user": {
-            "domain": "microsoft.com",
-            "email": "azure-noreply@microsoft.com",
-            "id": "azure-noreply@microsoft.com",
-            "name": "azure-noreply"
+            "domain": "azure.microsoft.com",
+            "email": "noreply@azure.microsoft.com",
+            "id": "noreply@azure.microsoft.com",
+            "name": "noreply"
         }
     },
     "tags": [
@@ -281,7 +258,6 @@ An example event for `log` looks as following:
         "forwarded"
     ]
 }
-
 ```
 
 **Exported fields**
@@ -292,42 +268,8 @@ An example event for `log` looks as following:
 | data_stream.dataset | The field can contain anything that makes sense to signify the source of the data. Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`. Beyond the Elasticsearch data stream naming criteria noted above, the `dataset` value has additional restrictions:   \* Must not contain `-`   \* No longer than 100 characters | constant_keyword |
 | data_stream.namespace | A user defined namespace. Namespaces are useful to allow grouping of data. Many users already organize their indices this way, and the data stream naming scheme now provides this best practice as a default. Many users will populate this field with `default`. If no value is used, it falls back to `default`. Beyond the Elasticsearch index naming criteria noted above, `namespace` value has the additional restrictions:   \* Must not contain `-`   \* No longer than 100 characters | constant_keyword |
 | data_stream.type | An overarching type for the data stream. Currently allowed values are "logs" and "metrics". We expect to also add "traces" and "synthetics" in the near future. | constant_keyword |
-| destination.as.number | Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet. | long |
-| destination.as.organization.name | Organization name. | keyword |
-| destination.as.organization.name.text | Multi-field of `destination.as.organization.name`. | match_only_text |
-| destination.domain | The domain name of the destination system. This value may be a host name, a fully qualified domain name, or another host naming format. The value may derive from the original event or be added from enrichment. | keyword |
-| destination.geo.city_name | City name. | keyword |
-| destination.geo.continent_name | Name of the continent. | keyword |
-| destination.geo.country_iso_code | Country ISO code. | keyword |
-| destination.geo.country_name | Country name. | keyword |
-| destination.geo.location | Longitude and latitude. | geo_point |
-| destination.geo.region_iso_code | Region ISO code. | keyword |
-| destination.geo.region_name | Region name. | keyword |
-| destination.ip | IP address of the destination (IPv4 or IPv6). | ip |
-| destination.registered_domain | The highest registered destination domain, stripped of the subdomain. For example, the registered domain for "foo.example.com" is "example.com". This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk". | keyword |
-| destination.subdomain | The subdomain portion of a fully qualified domain name includes all of the names except the host name under the registered_domain.  In a partially qualified domain, or if the the qualification level of the full name cannot be determined, subdomain contains all of the names below the registered domain. For example the subdomain portion of "www.east.mydomain.co.uk" is "east". If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1", with no trailing period. | keyword |
-| destination.top_level_domain | The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com". This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk". | keyword |
-| destination.user.domain | Name of the directory the user is a member of. For example, an LDAP or Active Directory domain name. | keyword |
-| destination.user.email | User email address. | keyword |
-| destination.user.id | Unique identifier of the user. | keyword |
-| destination.user.name | Short name or login of the user. | keyword |
-| destination.user.name.text | Multi-field of `destination.user.name`. | match_only_text |
-| ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events. When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events. | keyword |
-| email.attachments.file.size | Attachment file size in bytes. | long |
-| email.delivery_timestamp | The date and time when the email message was received by the service or client. | date |
-| email.direction | The direction of the message based on the sending and receiving domains. | keyword |
-| email.from.address | The email address of the sender, typically from the RFC 5322 `From:` header field. | keyword |
-| email.local_id | Unique identifier given to the email by the source that created the event. Identifier is not persistent across hops. | keyword |
-| email.message_id | Identifier from the RFC 5322 `Message-ID:` email header that refers to a particular email message. | wildcard |
-| email.subject | A brief summary of the topic of the message. | keyword |
-| email.subject.text | Multi-field of `email.subject`. | match_only_text |
-| email.to.address | The email address of recipient | keyword |
-| event.created | `event.created` contains the date/time when the event was first read by an agent, or by your pipeline. This field is distinct from `@timestamp` in that `@timestamp` typically contain the time extracted from the original event. In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source. In case the two timestamps are identical, `@timestamp` should be used. | date |
 | event.dataset | Event dataset | constant_keyword |
-| event.end | `event.end` contains the date when the event ended or when the activity was last observed. | date |
-| event.start | `event.start` contains the date when the event started or when the activity was first observed. | date |
 | input.type |  | keyword |
-| log.file.path | Full path to the log file this event came from, including the file name. It should include the drive letter, when appropriate. If the event wasn't read from a log file, do not populate this field. | keyword |
 | log.offset |  | long |
 | microsoft.online_message_trace.EndDate | This field is used to limit the report period. Use this field in a $filter query option to set the end date and time of the reporting period. If you supply EndDate in the $filter option, you must also supply StartDate. In this report, this field corresponds to the date and time of the last processing step recorded for the message. | date_nanos |
 | microsoft.online_message_trace.FromIP | The IPv4 or IPv6 address that transmitted the message to the Office 365 email system. | keyword |
@@ -343,30 +285,3 @@ An example event for `log` looks as following:
 | microsoft.online_message_trace.Status | The status of the message in the Office 365 email system. This corresponds to the Detail field of the last processing step recorded for the message.\</p\>\</td\> | keyword |
 | microsoft.online_message_trace.Subject | The subject line of the message, if one was present for the message.\</p\>\</td\> | keyword |
 | microsoft.online_message_trace.ToIP | The IPv4 or IPv6 address that the Office 365 email system sent the message to.\</p\>\</td\> | keyword |
-| related.user | All the user names or other user identifiers seen on the event. | keyword |
-| source.as.number | Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet. | long |
-| source.as.organization.name | Organization name. | keyword |
-| source.as.organization.name.text | Multi-field of `source.as.organization.name`. | match_only_text |
-| source.domain | The domain name of the source system. This value may be a host name, a fully qualified domain name, or another host naming format. The value may derive from the original event or be added from enrichment. | keyword |
-| source.geo.city_name | City name. | keyword |
-| source.geo.continent_name | Name of the continent. | keyword |
-| source.geo.country_iso_code | Country ISO code. | keyword |
-| source.geo.country_name | Country name. | keyword |
-| source.geo.location | Longitude and latitude. | geo_point |
-| source.geo.region_iso_code | Region ISO code. | keyword |
-| source.geo.region_name | Region name. | keyword |
-| source.ip | IP address of the source (IPv4 or IPv6). | ip |
-| source.registered_domain | The highest registered source domain, stripped of the subdomain. For example, the registered domain for "foo.example.com" is "example.com". This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk". | keyword |
-| source.subdomain | The subdomain portion of a fully qualified domain name includes all of the names except the host name under the registered_domain.  In a partially qualified domain, or if the the qualification level of the full name cannot be determined, subdomain contains all of the names below the registered domain. For example the subdomain portion of "www.east.mydomain.co.uk" is "east". If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1", with no trailing period. | keyword |
-| source.top_level_domain | The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com". This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk". | keyword |
-| source.user.domain | Name of the directory the user is a member of. For example, an LDAP or Active Directory domain name. | keyword |
-| source.user.email | User email address. | keyword |
-| source.user.id | Unique identifier of the user. | keyword |
-| source.user.name | Short name or login of the user. | keyword |
-| source.user.name.text | Multi-field of `source.user.name`. | match_only_text |
-| tags | List of keywords used to tag each event. | keyword |
-| user.domain | Name of the directory the user is a member of. For example, an LDAP or Active Directory domain name. | keyword |
-| user.email | User email address. | keyword |
-| user.id | Unique identifier of the user. | keyword |
-| user.name | Short name or login of the user. | keyword |
-| user.name.text | Multi-field of `user.name`. | match_only_text |

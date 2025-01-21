@@ -14,6 +14,9 @@ request.ssl: {{ssl}}
 {{#if http_client_timeout}}
 request.timeout: {{http_client_timeout}}
 {{/if}}
+{{#if http_request_rate_limit}}
+request.rate_limit.limit: "{{http_request_rate_limit}}"
+{{/if}}
 {{#if proxy_url}}
 request.proxy_url: {{proxy_url}}
 {{/if}}
@@ -32,7 +35,7 @@ request.transforms:
     value: 1
 - set:
     target: body.limit
-    value: 10
+    value: {{limit}}
 - set:
     target: body.returnFormat
     value: json
@@ -55,6 +58,7 @@ request.transforms:
 
 response.split:
   target: body.response
+  ignore_empty_value: true
   split:
     target: body.Event.Attribute
     ignore_empty_value: true

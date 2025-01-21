@@ -20,7 +20,7 @@ Usage details metrics track actual expenses including details like subscription 
 To use this integration you will need:
 
 * **Azure App Registration**: You need to set up an Azure App Registration to allow the Agent to access the Azure APIs. The App Registration requires a role to access the billing information. The required role is different depending on the subscription, department, or billing account scope. Check the [Setup section](#setup) for more details.
-* **Elasticsearch and Kibana**: You need Elasticsearch to store and search your data and Kibana to visualize and manage it. You can use our hosted Elasticsearch Service on Elastic Cloud, which is recommended, the [Native Azure Integration](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/elastic.elasticsearch?tab=Overview), or self-manage the Elastic Stack on your hardware.
+* **Elasticsearch and Kibana**: You need Elasticsearch to store and search your data and Kibana to visualize and manage it. You can use our hosted Elasticsearch Service on Elastic Cloud, which is recommended, the [Native Azure Integration](https://azuremarketplace.microsoft.com/en/marketplace/apps/elastic.ec-azure-pp?tab=overview), or self-manage the Elastic Stack on your hardware.
 * **Payment method**: Azure Billing Metrics integration queries are charged based on the number of standard API calls. One integration makes two calls every 24 hours in the standard configuration.
 
 ## Setup
@@ -54,7 +54,7 @@ Set up a new app registration in Azure.
 To create the app registration:
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. Search for and select **Azure Active Directory**.
+2. Search for and select **Microsoft Entra ID**.
 3. Under **Manage**, select **App registrations** > **New registration**.
 4. Enter a display _Name_ for your application (for example, "elastic-agent").
 5. Specify who can use the application.
@@ -156,7 +156,7 @@ The settings' main section contains all the options needed to access the Azure A
 
 #### Advanced options
 
-There are two additional advanced options:
+There are a few additional advanced options:
 
 `Resource Manager Endpoint` _string_
 : Optional. By default, the integration uses the Azure public environment. To override, users can provide a specific resource manager endpoint to use a different Azure environment.
@@ -177,6 +177,15 @@ Examples:
 * `https://login.microsoftonline.de` for Azure GermanCloud
 * `https://login.microsoftonline.com` for Azure PublicCloud
 * `https://login.microsoftonline.us` for Azure USGovernmentCloud
+
+`Resource Manager Audience` _string_
+: Optional. By default, the integration uses the associated Resource Manager Audience. To override, users can provide a specific resource manager audience to use a different Azure environment.
+
+Examples:
+
+* `https://management.core.chinacloudapi.cn` for Azure ChinaCloud
+* `https://management.core.windows.net` for Azure PublicCloud
+* `https://management.core.usgovcloudapi.net` for Azure USGovernmentCloud
 
 #### Data stream options
 
@@ -215,5 +224,9 @@ The Azure Billing Metrics data stream provides events from Consumption and Cost 
 #### Example
 
 {{event "billing"}}
+
+**ECS Field Reference**
+
+Please refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
 
 {{fields "billing"}}

@@ -187,7 +187,6 @@ processors:
             value: '{{{_ingest.on_failure_message}}}'
   - convert:
       field: json.externalIp
-      target_field: host.ip
       type: ip
       ignore_missing: true
       on_failure:
@@ -198,9 +197,15 @@ processors:
             field: error.message
             value: '{{{_ingest.on_failure_message}}}'
   - append:
+      field: host.ip
+      value: '{{{json.externalIp}}}'
+      if: ctx.json?.externalIp != null
+      allow_duplicates: false
+      ignore_failure: true
+  - append:
       field: related.ip
-      value: '{{{host.ip}}}'
-      if: ctx.host?.ip != null
+      value: '{{{json.externalIp}}}'
+      if: ctx.json?.externalIp != null
       allow_duplicates: false
       ignore_failure: true
   - convert:
@@ -249,8 +254,12 @@ processors:
             value: '{{{_ingest.on_failure_message}}}'
   - rename:
       field: json.id
-      target_field: host.id
+      target_field: sentinel_one.agent.agent.id
       ignore_missing: true
+  - set:
+      field: host.id
+      copy_from: sentinel_one.agent.agent.id
+      if: ctx.sentinel_one?.agent?.agent?.id != null
   - convert:
       field: json.infected
       target_field: sentinel_one.agent.infected
@@ -788,11 +797,6 @@ processors:
       ignore_failure: true
       if: ctx.sentinel_one?.agent?.tags != null && ctx.sentinel_one.agent.tags instanceof List
   - remove:
-      field: event.original
-      if: ctx.tags == null || !(ctx.tags.contains('preserve_original_event'))
-      ignore_failure: true
-      ignore_missing: true
-  - remove:
       field:
         - json
       ignore_missing: true
@@ -817,6 +821,10 @@ on_failure:
   - set:
       field: event.kind
       value: pipeline_error
+  - append:
+      field: tags
+      value: preserve_original_event
+      allow_duplicates: false
   - append:
       field: error.message
       value: '{{{ _ingest.on_failure_message }}}'

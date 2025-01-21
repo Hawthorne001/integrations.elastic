@@ -349,7 +349,6 @@ An example event for `ai_analyst_alert` looks as following:
         }
     }
 }
-
 ```
 
 **Exported fields**
@@ -357,19 +356,7 @@ An example event for `ai_analyst_alert` looks as following:
 | Field | Description | Type |
 |---|---|---|
 | @timestamp | Event timestamp. | date |
-| cloud.account.id | The cloud account or organization id used to identify different entities in a multi-tenant environment. Examples: AWS account id, Google Cloud ORG Id, or other unique identifier. | keyword |
-| cloud.availability_zone | Availability zone in which this host is running. | keyword |
 | cloud.image.id | Image ID for the cloud instance. | keyword |
-| cloud.instance.id | Instance ID of the host machine. | keyword |
-| cloud.instance.name | Instance name of the host machine. | keyword |
-| cloud.machine.type | Machine type of the host machine. | keyword |
-| cloud.project.id | Name of the project in Google Cloud. | keyword |
-| cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | keyword |
-| cloud.region | Region in which this host is running. | keyword |
-| container.id | Unique container id. | keyword |
-| container.image.name | Name of the image the container was built on. | keyword |
-| container.labels | Image labels. | object |
-| container.name | Container name. | keyword |
 | darktrace.ai_analyst_alert.activity_id | An identifier for the specific activity detected by AI Analyst. If groupByActivity=true , this field should be used to group events together into an incident. | keyword |
 | darktrace.ai_analyst_alert.aia_score | The score of the event as classified by AI Analyst - out of 100. | double |
 | darktrace.ai_analyst_alert.attack_phases | Of the six attack phases, which phases are applicable to the activity. | long |
@@ -418,56 +405,14 @@ An example event for `ai_analyst_alert` looks as following:
 | data_stream.dataset | Data stream dataset. | constant_keyword |
 | data_stream.namespace | Data stream namespace. | constant_keyword |
 | data_stream.type | Data stream type. | constant_keyword |
-| ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events. When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events. | keyword |
-| event.category | This is one of four ECS Categorization Fields, and indicates the second level in the ECS category hierarchy. `event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory. This field is an array. This will allow proper categorization of some events that fall in multiple categories. | keyword |
-| event.created | `event.created` contains the date/time when the event was first read by an agent, or by your pipeline. This field is distinct from `@timestamp` in that `@timestamp` typically contain the time extracted from the original event. In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source. In case the two timestamps are identical, `@timestamp` should be used. | date |
 | event.dataset | Event dataset. | constant_keyword |
-| event.end | `event.end` contains the date when the event ended or when the activity was last observed. | date |
-| event.id | Unique ID to describe the event. | keyword |
-| event.kind | This is one of four ECS Categorization Fields, and indicates the highest level in the ECS category hierarchy. `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events. The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data is coming in at a regular interval or not. | keyword |
 | event.module | Event module. | constant_keyword |
-| event.original | Raw text message of entire event. Used to demonstrate log integrity or where the full log message (before splitting it up in multiple parts) may be required, e.g. for reindex. This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, please see `Field data types` in the `Elasticsearch Reference`. | keyword |
-| event.reason | Reason why this event happened, according to the source. This describes the why of a particular action or outcome captured in the event. Where `event.action` captures the action from the event, `event.reason` describes why that action was taken. For example, a web proxy with an `event.action` which denied the request may also populate `event.reason` with the reason why (e.g. `blocked site`). | keyword |
-| event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | float |
-| event.risk_score_norm | Normalized risk score or priority of the event, on a scale of 0 to 100. This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems. | float |
-| event.start | `event.start` contains the date when the event started or when the activity was first observed. | date |
-| event.type | This is one of four ECS Categorization Fields, and indicates the third level in the ECS category hierarchy. `event.type` represents a categorization "sub-bucket" that, when used along with the `event.category` field values, enables filtering events down to a level appropriate for single visualization. This field is an array. This will allow proper categorization of some events that fall in multiple event types. | keyword |
-| event.url | URL linking to an external system to continue investigation of this event. This URL links to another system where in-depth investigation of the specific occurrence of this event can take place. Alert events, indicated by `event.kind:alert`, are a common use case for this field. | keyword |
-| host.architecture | Operating system architecture. | keyword |
 | host.containerized | If the host is a container. | boolean |
-| host.domain | Name of the domain of which the host is a member. For example, on Windows this could be the host's Active Directory domain or NetBIOS domain name. For Linux this could be the domain of the host's LDAP provider. | keyword |
-| host.hostname | Hostname of the host. It normally contains what the `hostname` command returns on the host machine. | keyword |
-| host.id | Unique host id. As hostname is not always unique, use values that are meaningful in your environment. Example: The current usage of `beat.name`. | keyword |
-| host.ip | Host ip addresses. | ip |
-| host.mac | Host mac addresses. | keyword |
-| host.name | Name of the host. It can contain what hostname returns on Unix systems, the fully qualified domain name (FQDN), or a name specified by the user. The recommended value is the lowercase FQDN of the host. | keyword |
 | host.os.build | OS build information. | keyword |
 | host.os.codename | OS codename, if any. | keyword |
-| host.os.family | OS family (such as redhat, debian, freebsd, windows). | keyword |
-| host.os.kernel | Operating system kernel version as a raw string. | keyword |
-| host.os.name | Operating system name, without the version. | keyword |
-| host.os.name.text | Multi-field of `host.os.name`. | text |
-| host.os.platform | Operating system platform (such centos, ubuntu, windows). | keyword |
-| host.os.version | Operating system version as a raw string. | keyword |
-| host.type | Type of host. For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | keyword |
 | input.type | Input type | keyword |
 | log.offset | Log offset | long |
 | log.source.address | Source address from which the log event was read / sent from. | keyword |
-| log.syslog.appname | The device or application that originated the Syslog message, if available. | keyword |
-| log.syslog.facility.code | The Syslog numeric facility of the log event, if available. According to RFCs 5424 and 3164, this value should be an integer between 0 and 23. | long |
-| log.syslog.facility.name | The Syslog text-based facility of the log event, if available. | keyword |
-| log.syslog.hostname | The hostname, FQDN, or IP of the machine that originally sent the Syslog message. This is sourced from the hostname field of the syslog header. Depending on the environment, this value may be different from the host that handled the event, especially if the host handling the events is acting as a collector. | keyword |
-| log.syslog.priority | Syslog numeric priority of the event, if available. According to RFCs 5424 and 3164, the priority is 8 \* facility + severity. This number is therefore expected to contain a value between 0 and 191. | long |
-| log.syslog.severity.code | The Syslog numeric severity of the log event, if available. If the event source publishing via Syslog provides a different numeric severity value (e.g. firewall, IDS), your source's numeric severity should go to `event.severity`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `event.severity`. | long |
-| log.syslog.severity.name | The Syslog numeric severity of the log event, if available. If the event source publishing via Syslog provides a different severity value (e.g. firewall, IDS), your source's text severity should go to `log.level`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `log.level`. | keyword |
-| log.syslog.version | The version of the Syslog protocol specification. Only applicable for RFC 5424 messages. | keyword |
-| message | For log events the message field contains the log message, optimized for viewing in a log viewer. For structured logs without an original message field, other fields can be concatenated to form a human-readable summary of the event. If multiple messages exist, they can be combined into one message. | match_only_text |
-| related.hosts | All hostnames or other host identifiers seen on your event. Example identifiers include FQDNs, domain names, workstation names, or aliases. | keyword |
-| related.ip | All of the IPs seen on your event. | ip |
-| rule.name | The name of the rule or signature generating the event. | keyword |
-| tags | List of keywords used to tag each event. | keyword |
-| threat.enrichments.matched.id | Identifies the _id of the indicator document enriching the event. | keyword |
-| threat.group.id | The id of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group id. | keyword |
 
 
 ### model_breach_alert
@@ -482,11 +427,11 @@ An example event for `model_breach_alert` looks as following:
 {
     "@timestamp": "2022-07-11T13:04:08.000Z",
     "agent": {
-        "ephemeral_id": "4d6d9ea0-9819-41c2-92ea-85ae0db8f2e7",
-        "id": "85270a54-b915-4d11-9305-d004346cb8cf",
-        "name": "docker-fleet-agent",
+        "ephemeral_id": "ec882d5d-4e2f-46d7-9436-1bf500ebbe15",
+        "id": "12398e67-5831-430a-bd92-515cfa993c86",
+        "name": "elastic-agent-32495",
         "type": "filebeat",
-        "version": "8.9.0"
+        "version": "8.13.0"
     },
     "darktrace": {
         "model_breach_alert": {
@@ -512,6 +457,7 @@ An example event for `model_breach_alert` looks as following:
                 "type_label": "Desktop",
                 "type_name": "desktop"
             },
+            "is_acknowledged": false,
             "model": {
                 "actions": {
                     "is_alerting": true,
@@ -976,16 +922,16 @@ An example event for `model_breach_alert` looks as following:
     },
     "data_stream": {
         "dataset": "darktrace.model_breach_alert",
-        "namespace": "ep",
+        "namespace": "56997",
         "type": "logs"
     },
     "ecs": {
         "version": "8.11.0"
     },
     "elastic_agent": {
-        "id": "85270a54-b915-4d11-9305-d004346cb8cf",
-        "snapshot": true,
-        "version": "8.9.0"
+        "id": "12398e67-5831-430a-bd92-515cfa993c86",
+        "snapshot": false,
+        "version": "8.13.0"
     },
     "event": {
         "agent_id_status": "verified",
@@ -994,7 +940,7 @@ An example event for `model_breach_alert` looks as following:
         ],
         "created": "2022-07-11T13:04:19.000Z",
         "dataset": "darktrace.model_breach_alert",
-        "ingested": "2023-06-14T17:03:48Z",
+        "ingested": "2024-10-25T03:45:44Z",
         "kind": "event",
         "original": "{\"commentCount\":0,\"pbid\":1,\"time\":1657544648000,\"creationTime\":1657544659000,\"aianalystData\":[{\"uuid\":\"1234abcd-1234-1234-1234-123456abcdef\",\"related\":[1],\"summariser\":\"BeaconSummary\"}],\"model\":{\"name\":\"Compromise::Beaconing Activity To External Rare\",\"pid\":156,\"phid\":1072,\"uuid\":\"1234abcd-1234-1234-1234-123456abcdef\",\"logic\":{\"data\":[{\"cid\":2026,\"weight\":1},{\"cid\":2024,\"weight\":1},{\"cid\":2025,\"weight\":-100}],\"targetScore\":1,\"type\":\"weightedComponentList\",\"version\":1},\"throttle\":10800,\"sharedEndpoints\":false,\"actions\":{\"alert\":true,\"antigena\":{},\"breach\":true,\"model\":true,\"setPriority\":false,\"setTag\":false,\"setType\":false},\"tags\":[\"AP: C2 Comms\"],\"interval\":10800,\"delay\":0,\"sequenced\":false,\"active\":true,\"modified\":\"2022-07-11 11:47:37\",\"activeTimes\":{\"devices\":{},\"tags\":{},\"type\":\"exclusions\",\"version\":2},\"autoUpdatable\":true,\"autoUpdate\":true,\"autoSuppress\":true,\"description\":\"A device has been repeatedly connecting to a rare external location with a beacon score. A beacon score is added when Darktrace identifies that a device is regularly communicating with an endpoint, for example, if a device connects to a rare external endpoint every 12 minutes this would get a beacon score. This model is designed to identify beaconing at a lower threshold and be protocol agnostic.\\\\n\\\\nAction: Review the external domains and IPs being connected to to see if they are legitimate and would be expected for business purposes.\",\"behaviour\":\"incdec1\",\"created\":{\"by\":\"System\"},\"edited\":{\"by\":\"System\"},\"version\":23,\"priority\":2,\"category\":\"Informational\",\"compliance\":false},\"triggeredComponents\":[{\"time\":1657544648000,\"cbid\":1,\"cid\":2026,\"chid\":2113,\"size\":11,\"threshold\":10,\"interval\":3600,\"logic\":{\"data\":{\"left\":{\"left\":\"A\",\"operator\":\"AND\",\"right\":{\"left\":\"AA\",\"operator\":\"AND\",\"right\":{\"left\":\"AC\",\"operator\":\"AND\",\"right\":{\"left\":\"AD\",\"operator\":\"AND\",\"right\":{\"left\":\"AF\",\"operator\":\"AND\",\"right\":{\"left\":\"AG\",\"operator\":\"AND\",\"right\":{\"left\":\"AH\",\"operator\":\"AND\",\"right\":{\"left\":\"B\",\"operator\":\"AND\",\"right\":{\"left\":\"C\",\"operator\":\"AND\",\"right\":{\"left\":\"D\",\"operator\":\"AND\",\"right\":{\"left\":\"E\",\"operator\":\"AND\",\"right\":{\"left\":\"H\",\"operator\":\"AND\",\"right\":{\"left\":\"I\",\"operator\":\"AND\",\"right\":{\"left\":\"J\",\"operator\":\"AND\",\"right\":{\"left\":\"K\",\"operator\":\"AND\",\"right\":{\"left\":\"L\",\"operator\":\"AND\",\"right\":{\"left\":\"M\",\"operator\":\"AND\",\"right\":{\"left\":\"N\",\"operator\":\"AND\",\"right\":{\"left\":\"O\",\"operator\":\"AND\",\"right\":{\"left\":\"P\",\"operator\":\"AND\",\"right\":{\"left\":\"S\",\"operator\":\"AND\",\"right\":{\"left\":\"U\",\"operator\":\"AND\",\"right\":{\"left\":\"V\",\"operator\":\"AND\",\"right\":{\"left\":\"X\",\"operator\":\"AND\",\"right\":{\"left\":\"Y\",\"operator\":\"AND\",\"right\":\"Z\"}}}}}}}}}}}}}}}}}}}}}}}}},\"operator\":\"OR\",\"right\":{\"left\":\"A\",\"operator\":\"AND\",\"right\":{\"left\":\"AA\",\"operator\":\"AND\",\"right\":{\"left\":\"AB\",\"operator\":\"AND\",\"right\":{\"left\":\"AE\",\"operator\":\"AND\",\"right\":{\"left\":\"AF\",\"operator\":\"AND\",\"right\":{\"left\":\"AG\",\"operator\":\"AND\",\"right\":{\"left\":\"AH\",\"operator\":\"AND\",\"right\":{\"left\":\"C\",\"operator\":\"AND\",\"right\":{\"left\":\"D\",\"operator\":\"AND\",\"right\":{\"left\":\"E\",\"operator\":\"AND\",\"right\":{\"left\":\"H\",\"operator\":\"AND\",\"right\":{\"left\":\"I\",\"operator\":\"AND\",\"right\":{\"left\":\"J\",\"operator\":\"AND\",\"right\":{\"left\":\"K\",\"operator\":\"AND\",\"right\":{\"left\":\"L\",\"operator\":\"AND\",\"right\":{\"left\":\"M\",\"operator\":\"AND\",\"right\":{\"left\":\"N\",\"operator\":\"AND\",\"right\":{\"left\":\"O\",\"operator\":\"AND\",\"right\":{\"left\":\"P\",\"operator\":\"AND\",\"right\":{\"left\":\"S\",\"operator\":\"AND\",\"right\":{\"left\":\"U\",\"operator\":\"AND\",\"right\":{\"left\":\"V\",\"operator\":\"AND\",\"right\":{\"left\":\"X\",\"operator\":\"AND\",\"right\":{\"left\":\"Y\",\"operator\":\"AND\",\"right\":\"Z\"}}}}}}}}}}}}}}}}}}}}}}}}},\"version\":\"v0.1\"},\"metric\":{\"mlid\":1,\"name\":\"externalconnections\",\"label\":\"External Connections\"},\"triggeredFilters\":[{\"cfid\":23426,\"id\":\"A\",\"filterType\":\"Beaconing score\",\"arguments\":{\"value\":60},\"comparatorType\":\">\",\"trigger\":{\"value\":\"100\"}},{\"cfid\":23427,\"id\":\"AA\",\"filterType\":\"Individual size up\",\"arguments\":{\"value\":0},\"comparatorType\":\">\",\"trigger\":{\"value\":\"4382\"}},{\"cfid\":23428,\"id\":\"AB\",\"filterType\":\"Rare domain\",\"arguments\":{\"value\":95},\"comparatorType\":\">\",\"trigger\":{\"value\":\"100\"}},{\"cfid\":23430,\"id\":\"AD\",\"filterType\":\"Age of destination\",\"arguments\":{\"value\":1209600},\"comparatorType\":\"<\",\"trigger\":{\"value\":\"558\"}},{\"cfid\":23431,\"id\":\"AE\",\"filterType\":\"Age of external hostname\",\"arguments\":{\"value\":1209600},\"comparatorType\":\"<\",\"trigger\":{\"value\":\"558\"}},{\"cfid\":23432,\"id\":\"AF\",\"filterType\":\"Connection hostname\",\"arguments\":{\"value\":\"examples\"},\"comparatorType\":\"does not match regular expression\",\"trigger\":{\"value\":\"example.com\"}},{\"cfid\":23433,\"id\":\"AG\",\"filterType\":\"ASN\",\"arguments\":{\"value\":\"examples\"},\"comparatorType\":\"does not match regular expression\",\"trigger\":{\"value\":\"AS12345 LOCAL-02\"}},{\"cfid\":23434,\"id\":\"AH\",\"filterType\":\"JA3 hash\",\"arguments\":{\"value\":\"5d41402abc4b2a76b9719d911017c592\"},\"comparatorType\":\"does not match\",\"trigger\":{\"value\":\"5d41402abc4b2a76b9719d911017c592\"}},{\"cfid\":23435,\"id\":\"B\",\"filterType\":\"Rare external IP\",\"arguments\":{\"value\":95},\"comparatorType\":\">\",\"trigger\":{\"value\":\"100\"}},{\"cfid\":23436,\"id\":\"C\",\"filterType\":\"Application protocol\",\"arguments\":{\"value\":\"1003\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"1004\"}},{\"cfid\":23437,\"id\":\"D\",\"filterType\":\"Destination port\",\"arguments\":{\"value\":53},\"comparatorType\":\"!=\",\"trigger\":{\"value\":\"443\"}},{\"cfid\":23438,\"id\":\"E\",\"filterType\":\"Direction\",\"arguments\":{\"value\":\"out\"},\"comparatorType\":\"is\",\"trigger\":{\"value\":\"out\"}},{\"cfid\":23439,\"id\":\"H\",\"filterType\":\"Destination port\",\"arguments\":{\"value\":137},\"comparatorType\":\"!=\",\"trigger\":{\"value\":\"443\"}},{\"cfid\":23440,\"id\":\"I\",\"filterType\":\"Destination port\",\"arguments\":{\"value\":161},\"comparatorType\":\"!=\",\"trigger\":{\"value\":\"443\"}},{\"cfid\":23441,\"id\":\"J\",\"filterType\":\"Protocol\",\"arguments\":{\"value\":\"6\"},\"comparatorType\":\"is\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23442,\"id\":\"K\",\"filterType\":\"ASN\",\"arguments\":{\"value\":\"Company\"},\"comparatorType\":\"does not contain\",\"trigger\":{\"value\":\"AS12345 LOCAL-02\"}},{\"cfid\":23443,\"id\":\"L\",\"filterType\":\"ASN\",\"arguments\":{\"value\":\"Company\"},\"comparatorType\":\"does not contain\",\"trigger\":{\"value\":\"AS12345 LOCAL-02\"}},{\"cfid\":23444,\"id\":\"M\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"13\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23445,\"id\":\"N\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"5\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23446,\"id\":\"O\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"9\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23447,\"id\":\"P\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"12\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23448,\"id\":\"S\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"30\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23449,\"id\":\"U\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"4\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23450,\"id\":\"V\",\"filterType\":\"Internal source device type\",\"arguments\":{\"value\":\"3\"},\"comparatorType\":\"is not\",\"trigger\":{\"value\":\"6\"}},{\"cfid\":23451,\"id\":\"X\",\"filterType\":\"Trusted hostname\",\"arguments\":{\"value\":\"false\"},\"comparatorType\":\"is\",\"trigger\":{\"value\":\"false\"}},{\"cfid\":23452,\"id\":\"Y\",\"filterType\":\"Tagged internal source\",\"arguments\":{\"value\":26},\"comparatorType\":\"does not have tag\",\"trigger\":{\"value\":\"26\",\"tag\":{\"tid\":26,\"expiry\":0,\"thid\":26,\"name\":\"No Device Tracking\",\"restricted\":false,\"data\":{\"auto\":false,\"color\":5,\"description\":\"\",\"visibility\":\"Public\"},\"isReferenced\":true}}},{\"cfid\":23453,\"id\":\"Z\",\"filterType\":\"Individual size down\",\"arguments\":{\"value\":0},\"comparatorType\":\">\",\"trigger\":{\"value\":\"5862\"}},{\"cfid\":23454,\"id\":\"d1\",\"filterType\":\"JA3 hash\",\"arguments\":{},\"comparatorType\":\"display\",\"trigger\":{\"value\":\"5d41402abc4b2a76b9719d911017c592\"}},{\"cfid\":23455,\"id\":\"d2\",\"filterType\":\"ASN\",\"arguments\":{},\"comparatorType\":\"display\",\"trigger\":{\"value\":\"AS12345 LOCAL-02\"}},{\"cfid\":23456,\"id\":\"d3\",\"filterType\":\"Destination IP\",\"arguments\":{},\"comparatorType\":\"display\",\"trigger\":{\"value\":\"81.2.69.192\"}},{\"cfid\":23457,\"id\":\"d4\",\"filterType\":\"Connection hostname\",\"arguments\":{},\"comparatorType\":\"display\",\"trigger\":{\"value\":\"example.com\"}}]}],\"score\":0.674,\"device\":{\"did\":3,\"ip\":\"81.2.69.142\",\"sid\":1,\"firstSeen\":1657544089000,\"lastSeen\":1657544418000,\"typename\":\"desktop\",\"typelabel\":\"Desktop\"}}",
         "risk_score": 0.674,
@@ -1016,11 +962,11 @@ An example event for `model_breach_alert` looks as following:
         "type": "desktop"
     },
     "input": {
-        "type": "tcp"
+        "type": "udp"
     },
     "log": {
         "source": {
-            "address": "172.31.0.4:60610"
+            "address": "192.168.112.3:50896"
         },
         "syslog": {
             "facility": {
@@ -1064,7 +1010,6 @@ An example event for `model_breach_alert` looks as following:
         "darktrace-model_breach_alert"
     ]
 }
-
 ```
 
 **Exported fields**
@@ -1072,19 +1017,9 @@ An example event for `model_breach_alert` looks as following:
 | Field | Description | Type |
 |---|---|---|
 | @timestamp | Event timestamp. | date |
-| cloud.account.id | The cloud account or organization id used to identify different entities in a multi-tenant environment. Examples: AWS account id, Google Cloud ORG Id, or other unique identifier. | keyword |
-| cloud.availability_zone | Availability zone in which this host is running. | keyword |
 | cloud.image.id | Image ID for the cloud instance. | keyword |
-| cloud.instance.id | Instance ID of the host machine. | keyword |
-| cloud.instance.name | Instance name of the host machine. | keyword |
-| cloud.machine.type | Machine type of the host machine. | keyword |
-| cloud.project.id | Name of the project in Google Cloud. | keyword |
-| cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | keyword |
-| cloud.region | Region in which this host is running. | keyword |
-| container.id | Unique container id. | keyword |
-| container.image.name | Name of the image the container was built on. | keyword |
-| container.labels | Image labels. | object |
-| container.name | Container name. | keyword |
+| darktrace.model_breach_alert.acknowledged.time |  | date |
+| darktrace.model_breach_alert.acknowledged.username |  | keyword |
 | darktrace.model_breach_alert.aianalyst_data.related |  | long |
 | darktrace.model_breach_alert.aianalyst_data.summariser |  | keyword |
 | darktrace.model_breach_alert.aianalyst_data.uuid |  | keyword |
@@ -1214,62 +1149,14 @@ An example event for `model_breach_alert` looks as following:
 | data_stream.dataset | Data stream dataset. | constant_keyword |
 | data_stream.namespace | Data stream namespace. | constant_keyword |
 | data_stream.type | Data stream type. | constant_keyword |
-| ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events. When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events. | keyword |
-| event.action | The action captured by the event. This describes the information in the event. It is more specific than `event.category`. Examples are `group-add`, `process-started`, `file-created`. The value is normally defined by the implementer. | keyword |
-| event.category | This is one of four ECS Categorization Fields, and indicates the second level in the ECS category hierarchy. `event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory. This field is an array. This will allow proper categorization of some events that fall in multiple categories. | keyword |
-| event.created | `event.created` contains the date/time when the event was first read by an agent, or by your pipeline. This field is distinct from `@timestamp` in that `@timestamp` typically contain the time extracted from the original event. In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source. In case the two timestamps are identical, `@timestamp` should be used. | date |
 | event.dataset | Event dataset. | constant_keyword |
-| event.kind | This is one of four ECS Categorization Fields, and indicates the highest level in the ECS category hierarchy. `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events. The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data is coming in at a regular interval or not. | keyword |
 | event.module | Event module. | constant_keyword |
-| event.original | Raw text message of entire event. Used to demonstrate log integrity or where the full log message (before splitting it up in multiple parts) may be required, e.g. for reindex. This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, please see `Field data types` in the `Elasticsearch Reference`. | keyword |
-| event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | float |
-| event.risk_score_norm | Normalized risk score or priority of the event, on a scale of 0 to 100. This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems. | float |
-| event.severity | The numeric severity of the event according to your event source. What the different severity values mean can be different between sources and use cases. It's up to the implementer to make sure severities are consistent across events from the same source. The Syslog severity belongs in `log.syslog.severity.code`. `event.severity` is meant to represent the severity according to the event source (e.g. firewall, IDS). If the event source does not publish its own severity, you may optionally copy the `log.syslog.severity.code` to `event.severity`. | long |
-| event.start | `event.start` contains the date when the event started or when the activity was first observed. | date |
-| event.type | This is one of four ECS Categorization Fields, and indicates the third level in the ECS category hierarchy. `event.type` represents a categorization "sub-bucket" that, when used along with the `event.category` field values, enables filtering events down to a level appropriate for single visualization. This field is an array. This will allow proper categorization of some events that fall in multiple event types. | keyword |
-| event.url | URL linking to an external system to continue investigation of this event. This URL links to another system where in-depth investigation of the specific occurrence of this event can take place. Alert events, indicated by `event.kind:alert`, are a common use case for this field. | keyword |
-| host.architecture | Operating system architecture. | keyword |
 | host.containerized | If the host is a container. | boolean |
-| host.domain | Name of the domain of which the host is a member. For example, on Windows this could be the host's Active Directory domain or NetBIOS domain name. For Linux this could be the domain of the host's LDAP provider. | keyword |
-| host.hostname | Hostname of the host. It normally contains what the `hostname` command returns on the host machine. | keyword |
-| host.id | Unique host id. As hostname is not always unique, use values that are meaningful in your environment. Example: The current usage of `beat.name`. | keyword |
-| host.ip | Host ip addresses. | ip |
-| host.mac | Host mac addresses. | keyword |
-| host.name | Name of the host. It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use. | keyword |
 | host.os.build | OS build information. | keyword |
 | host.os.codename | OS codename, if any. | keyword |
-| host.os.family | OS family (such as redhat, debian, freebsd, windows). | keyword |
-| host.os.kernel | Operating system kernel version as a raw string. | keyword |
-| host.os.name | Operating system name, without the version. | keyword |
-| host.os.name.text | Multi-field of `host.os.name`. | text |
-| host.os.platform | Operating system platform (such centos, ubuntu, windows). | keyword |
-| host.os.version | Operating system version as a raw string. | keyword |
-| host.type | Type of host. For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | keyword |
 | input.type | Input type | keyword |
 | log.offset | Log offset | long |
 | log.source.address | Source address from which the log event was read / sent from. | keyword |
-| log.syslog.appname | The device or application that originated the Syslog message, if available. | keyword |
-| log.syslog.facility.code | The Syslog numeric facility of the log event, if available. According to RFCs 5424 and 3164, this value should be an integer between 0 and 23. | long |
-| log.syslog.facility.name | The Syslog text-based facility of the log event, if available. | keyword |
-| log.syslog.hostname | The hostname, FQDN, or IP of the machine that originally sent the Syslog message. This is sourced from the hostname field of the syslog header. Depending on the environment, this value may be different from the host that handled the event, especially if the host handling the events is acting as a collector. | keyword |
-| log.syslog.priority | Syslog numeric priority of the event, if available. According to RFCs 5424 and 3164, the priority is 8 \* facility + severity. This number is therefore expected to contain a value between 0 and 191. | long |
-| log.syslog.severity.code | The Syslog numeric severity of the log event, if available. If the event source publishing via Syslog provides a different numeric severity value (e.g. firewall, IDS), your source's numeric severity should go to `event.severity`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `event.severity`. | long |
-| log.syslog.severity.name | The Syslog numeric severity of the log event, if available. If the event source publishing via Syslog provides a different severity value (e.g. firewall, IDS), your source's text severity should go to `log.level`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `log.level`. | keyword |
-| log.syslog.version | The version of the Syslog protocol specification. Only applicable for RFC 5424 messages. | keyword |
-| related.hosts | All hostnames or other host identifiers seen on your event. Example identifiers include FQDNs, domain names, workstation names, or aliases. | keyword |
-| related.ip | All of the IPs seen on your event. | ip |
-| related.user | All the user names or other user identifiers seen on the event. | keyword |
-| rule.author | Name, organization, or pseudonym of the author or authors who created the rule used to generate this event. | keyword |
-| rule.category | A categorization value keyword used by the entity using the rule for detection of this event. | keyword |
-| rule.description | The description of the rule generating the event. | keyword |
-| rule.name | The name of the rule or signature generating the event. | keyword |
-| rule.ruleset | Name of the ruleset, policy, group, or parent category in which the rule used to generate this event is a member. | keyword |
-| rule.uuid | A rule ID that is unique within the scope of a set or group of agents, observers, or other entities using the rule for detection of this event. | keyword |
-| rule.version | The version / revision of the rule being used for analysis. | keyword |
-| tags | List of keywords used to tag each event. | keyword |
-| threat.technique.id | The id of technique used by this threat. You can use a MITRE ATT&CK® technique, for example. (ex. https://attack.mitre.org/techniques/T1059/) | keyword |
-| threat.technique.name | The name of technique used by this threat. You can use a MITRE ATT&CK® technique, for example. (ex. https://attack.mitre.org/techniques/T1059/) | keyword |
-| threat.technique.name.text | Multi-field of `threat.technique.name`. | match_only_text |
 
 
 ### system_status_alert
@@ -1375,7 +1262,6 @@ An example event for `system_status_alert` looks as following:
         "darktrace-system_status_alert"
     ]
 }
-
 ```
 
 **Exported fields**
@@ -1383,19 +1269,7 @@ An example event for `system_status_alert` looks as following:
 | Field | Description | Type |
 |---|---|---|
 | @timestamp | Event timestamp. | date |
-| cloud.account.id | The cloud account or organization id used to identify different entities in a multi-tenant environment. Examples: AWS account id, Google Cloud ORG Id, or other unique identifier. | keyword |
-| cloud.availability_zone | Availability zone in which this host is running. | keyword |
 | cloud.image.id | Image ID for the cloud instance. | keyword |
-| cloud.instance.id | Instance ID of the host machine. | keyword |
-| cloud.instance.name | Instance name of the host machine. | keyword |
-| cloud.machine.type | Machine type of the host machine. | keyword |
-| cloud.project.id | Name of the project in Google Cloud. | keyword |
-| cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | keyword |
-| cloud.region | Region in which this host is running. | keyword |
-| container.id | Unique container id. | keyword |
-| container.image.name | Name of the image the container was built on. | keyword |
-| container.labels | Image labels. | object |
-| container.name | Container name. | keyword |
 | darktrace.system_status_alert.acknowledge_timeout | When acknowledgement of the alert expires. As alerts are sent externally on creation before acknowledgement is possible, this will be null in almost all cases. | keyword |
 | darktrace.system_status_alert.alert_name | A human readable name of the alert type. | keyword |
 | darktrace.system_status_alert.child_id | For probes (physical or virtual), the unique ID associated with the probe. | long |
@@ -1423,47 +1297,11 @@ An example event for `system_status_alert` looks as following:
 | data_stream.dataset | Data stream dataset. | constant_keyword |
 | data_stream.namespace | Data stream namespace. | constant_keyword |
 | data_stream.type | Data stream type. | constant_keyword |
-| ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events. When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events. | keyword |
-| event.category | This is one of four ECS Categorization Fields, and indicates the second level in the ECS category hierarchy. `event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory. This field is an array. This will allow proper categorization of some events that fall in multiple categories. | keyword |
-| event.created | `event.created` contains the date/time when the event was first read by an agent, or by your pipeline. This field is distinct from `@timestamp` in that `@timestamp` typically contain the time extracted from the original event. In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source. In case the two timestamps are identical, `@timestamp` should be used. | date |
 | event.dataset | Event dataset. | constant_keyword |
-| event.id | Unique ID to describe the event. | keyword |
-| event.kind | This is one of four ECS Categorization Fields, and indicates the highest level in the ECS category hierarchy. `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events. The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data is coming in at a regular interval or not. | keyword |
 | event.module | Event module. | constant_keyword |
-| event.original | Raw text message of entire event. Used to demonstrate log integrity or where the full log message (before splitting it up in multiple parts) may be required, e.g. for reindex. This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, please see `Field data types` in the `Elasticsearch Reference`. | keyword |
-| event.reason | Reason why this event happened, according to the source. This describes the why of a particular action or outcome captured in the event. Where `event.action` captures the action from the event, `event.reason` describes why that action was taken. For example, a web proxy with an `event.action` which denied the request may also populate `event.reason` with the reason why (e.g. `blocked site`). | keyword |
-| event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | float |
-| event.risk_score_norm | Normalized risk score or priority of the event, on a scale of 0 to 100. This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems. | float |
-| event.type | This is one of four ECS Categorization Fields, and indicates the third level in the ECS category hierarchy. `event.type` represents a categorization "sub-bucket" that, when used along with the `event.category` field values, enables filtering events down to a level appropriate for single visualization. This field is an array. This will allow proper categorization of some events that fall in multiple event types. | keyword |
-| event.url | URL linking to an external system to continue investigation of this event. This URL links to another system where in-depth investigation of the specific occurrence of this event can take place. Alert events, indicated by `event.kind:alert`, are a common use case for this field. | keyword |
-| host.architecture | Operating system architecture. | keyword |
 | host.containerized | If the host is a container. | boolean |
-| host.domain | Name of the domain of which the host is a member. For example, on Windows this could be the host's Active Directory domain or NetBIOS domain name. For Linux this could be the domain of the host's LDAP provider. | keyword |
-| host.hostname | Hostname of the host. It normally contains what the `hostname` command returns on the host machine. | keyword |
-| host.id | Unique host id. As hostname is not always unique, use values that are meaningful in your environment. Example: The current usage of `beat.name`. | keyword |
-| host.ip | Host ip addresses. | ip |
-| host.mac | Host mac addresses. | keyword |
-| host.name | Name of the host. It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use. | keyword |
 | host.os.build | OS build information. | keyword |
 | host.os.codename | OS codename, if any. | keyword |
-| host.os.family | OS family (such as redhat, debian, freebsd, windows). | keyword |
-| host.os.kernel | Operating system kernel version as a raw string. | keyword |
-| host.os.name | Operating system name, without the version. | keyword |
-| host.os.name.text | Multi-field of `host.os.name`. | text |
-| host.os.platform | Operating system platform (such centos, ubuntu, windows). | keyword |
-| host.os.version | Operating system version as a raw string. | keyword |
-| host.type | Type of host. For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | keyword |
 | input.type | Input type | keyword |
 | log.offset | Log offset | long |
 | log.source.address | Source address from which the log event was read / sent from. | keyword |
-| log.syslog.appname | The device or application that originated the Syslog message, if available. | keyword |
-| log.syslog.facility.code | The Syslog numeric facility of the log event, if available. According to RFCs 5424 and 3164, this value should be an integer between 0 and 23. | long |
-| log.syslog.facility.name | The Syslog text-based facility of the log event, if available. | keyword |
-| log.syslog.hostname | The hostname, FQDN, or IP of the machine that originally sent the Syslog message. This is sourced from the hostname field of the syslog header. Depending on the environment, this value may be different from the host that handled the event, especially if the host handling the events is acting as a collector. | keyword |
-| log.syslog.priority | Syslog numeric priority of the event, if available. According to RFCs 5424 and 3164, the priority is 8 \* facility + severity. This number is therefore expected to contain a value between 0 and 191. | long |
-| log.syslog.severity.code | The Syslog numeric severity of the log event, if available. If the event source publishing via Syslog provides a different numeric severity value (e.g. firewall, IDS), your source's numeric severity should go to `event.severity`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `event.severity`. | long |
-| log.syslog.severity.name | The Syslog numeric severity of the log event, if available. If the event source publishing via Syslog provides a different severity value (e.g. firewall, IDS), your source's text severity should go to `log.level`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `log.level`. | keyword |
-| log.syslog.version | The version of the Syslog protocol specification. Only applicable for RFC 5424 messages. | keyword |
-| related.hosts | All hostnames or other host identifiers seen on your event. Example identifiers include FQDNs, domain names, workstation names, or aliases. | keyword |
-| related.ip | All of the IPs seen on your event. | ip |
-| tags | List of keywords used to tag each event. | keyword |

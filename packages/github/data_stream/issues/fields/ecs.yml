@@ -1,22 +1,4 @@
-- name: ecs.version
-  external: ecs
-- name: error.message
-  external: ecs
-- name: event.category
-  external: ecs
-- name: event.created
-  external: ecs
+# Define ECS constant fields as constant_keyword
 - name: event.kind
-  external: ecs
-- name: user.name
-  external: ecs
-- name: user.id
-  external: ecs
-- name: user.roles
-  external: ecs
-- name: related.user
-  external: ecs
-- name: tags
-  external: ecs
-- name: message
-  external: ecs
+  type: constant_keyword
+  value: event

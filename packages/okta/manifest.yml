@@ -1,13 +1,13 @@
 name: okta
 title: Okta
-version: "2.9.0"
+version: "3.4.1"
 description: Collect and parse event logs from Okta API with Elastic Agent.
 type: integration
-format_version: "3.0.2"
+format_version: "3.1.0"
 categories: [security, iam]
 conditions:
   kibana:
-    version: ^8.13.0
+    version: ^8.15.0
 icons:
   - src: /img/okta-logo.svg
     title: Okta
@@ -62,9 +62,16 @@ policy_templates:
             required: false
             show_user: true
             description: |
-              This is the API Key of your Okta service application. This is only required for the standard api key based authentication.
-              Do not use this field if you are using OAuth2 authentication.
+              This is the API Key of your Okta service application. This is required for standard api key based authentication and Okta Integration Network (OIN) app authentication.
+              Do not use this field if you are using standard OAuth2 authentication.
             secret: true
+          - name: oin_app
+            type: bool
+            title: Use Okta Integration Network (OIN) Authentication
+            multi: false
+            required: false
+            show_user: true
+            description: Use the API Key as the OIN client secret.
           - name: okta_domain_url
             type: text
             title: Okta Domain URL
@@ -73,7 +80,8 @@ policy_templates:
             show_user: true
             description: |
               This is the URL of your Okta domain. For example, https://dev-123456.okta.com.
-              This is only required for OAuth2 authentication. Do not use this field if you are using API Key based authentication.
+              This is only required for OAuth2 authentication. This is required for standard OAuth2 authentication and OIN app authentication.
+              Do not use this field if you are using API Key based authentication without OIN authentication.
           - name: client_id
             type: text
             title: Client ID
@@ -81,8 +89,8 @@ policy_templates:
             required: false
             show_user: true
             description: |
-              This is the Client ID of your Okta service application. This is only required for OAuth2 authentication.
-              Do not use this field if you are using API Key based authentication.
+              This is the Client ID of your Okta service application. This is required for standard OAuth2 authentication and OIN app authentication.
+              Do not use this field if you are using API Key based authentication without OIN authentication.
           - name: jwk_json
             type: password
             title: JWK JSON
@@ -131,7 +139,8 @@ policy_templates:
             multi: false
             required: false
             show_user: false
-            description: The request tracer logs requests and responses to the agent's local file-system for debugging configurations. Enabling this request tracing compromises security and should only be used for debugging. See [documentation](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-httpjson.html#_request_tracer_filename) for details.
+            description: >-
+              The request tracer logs requests and responses to the agent's local file-system for debugging configurations. Enabling this request tracing compromises security and should only be used for debugging. Disabling the request tracer will delete any stored traces. See [documentation](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-httpjson.html#_request_tracer_enable) for details.
           - name: ssl
             type: yaml
             title: SSL

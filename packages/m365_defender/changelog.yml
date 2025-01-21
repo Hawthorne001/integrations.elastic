@@ -1,4 +1,127 @@
 # newer versions go on top
+- version: "2.20.0"
+  changes:
+    - description: Make token endpoint configurable for Alert data stream.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/12401
+- version: "2.19.0"
+  changes:
+    - description: Add support for `IdentityInfo` advanced hunting table.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/12214
+- version: "2.18.0"
+  changes:
+    - description: Add "preserve_original_event" tag to documents with `event.kind` manually set to "pipeline_error".
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/12109
+- version: "2.17.1"
+  changes:
+    - description: Change connection_string to be a secret
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/12112
+- version: "2.17.0"
+  changes:
+    - description: Do not remove `event.original` in main ingest pipeline.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/12076
+- version: "2.16.0"
+  changes:
+    - description: Add "preserve_original_event" tag to documents with `event.kind` set to "pipeline_error".
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/12046
+- version: "2.15.2"
+  changes:
+    - description: Fix string literals in painless scripts.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/12047
+- version: "2.15.1"
+  changes:
+    - description: Add caseless fields to process events.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/11020
+- version: "2.15.0"
+  changes:
+    - description: Fix OS assignment for Windows devices.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10953
+    - description: Set `host.os.type` to unix for all POSIX systems without a known platform.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/10953
+- version: "2.14.7"
+  changes:
+    - description: Fix pipeline errors for DNS logs.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10947
+- version: "2.14.6"
+  changes:
+    - description: Fix dashboard filters to look for correct event.severity values.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10810
+- version: "2.14.5"
+  changes:
+    - description: Fix mapping issue for DNS answers field.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10772
+- version: "2.14.4"
+  changes:
+    - description: Fix `host.mac` gsub processor to handle MAC addresses with `-` already present.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10798
+- version: "2.14.3"
+  changes:
+    - description: Fix sslconnectioninspected event `network.protocol` getting set to `dns`.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10730
+- version: "2.14.2"
+  changes:
+    - description: Fix `network.transport` and `network.protocol` processing.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10418
+- version: "2.14.1"
+  changes:
+    - description: Fix process executable containing duplicate process name.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/10280
+- version: "2.14.0"
+  changes:
+    - description: Improve ECS mappings
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/10179
+- version: "2.13.0"
+  changes:
+    - description: Removed import_mappings. Update the kibana constraint to ^8.13.0. Modified the field definitions to remove ECS fields made redundant by the ecs@mappings component template.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/10135
+- version: "2.12.0"
+  changes:
+    - description: Make `host.ip` and `host.mac` fields conform to ECS field definition.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/10120
+- version: "2.11.0"
+  changes:
+    - description: Improve detection rules support
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/9860
+- version: "2.10.0"
+  changes:
+    - description: Improve handling of empty responses.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/9974
+- version: "2.9.1"
+  changes:
+    - description: Drop last page events in the alerts datastream.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/9983
+- version: "2.9.0"
+  changes:
+    - description: Improve command line analyser.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/9812
+- version: "2.8.1"
+  changes:
+    - description: Resolved ignore_malformed issues with fields.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/9832
 - version: "2.8.0"
   changes:
     - description: Set sensitive values as secret and fix incorrect mappings.

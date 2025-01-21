@@ -96,7 +96,7 @@ The minimum **kibana.version** required is **8.9.0**.
 5. While adding the integration, if you want to collect logs via AWS S3, then you have to put the following details:
    - access key id
    - secret access key
-   - bucket arn
+   - bucket arn or access point arn
    - collect logs via S3 Bucket toggled on
 
    or if you want to collect logs via AWS SQS, then you have to put the following details:
@@ -339,7 +339,6 @@ An example event for `event` looks as following:
         "name": "example user"
     }
 }
-
 ```
 
 **Exported fields**
@@ -357,12 +356,12 @@ An example event for `event` looks as following:
 | event.module | Event module. | constant_keyword |
 | input.type | Type of filebeat input. | keyword |
 | log.offset | Log offset. | long |
-| tags | User defined tags. | keyword |
 | trellix_edr_cloud.event.access_type |  | keyword |
 | trellix_edr_cloud.event.action |  | keyword |
 | trellix_edr_cloud.event.arguments |  | keyword |
 | trellix_edr_cloud.event.author_name |  | keyword |
 | trellix_edr_cloud.event.bytes_received |  | long |
+| trellix_edr_cloud.event.certs |  | nested |
 | trellix_edr_cloud.event.certs.issuer_name |  | keyword |
 | trellix_edr_cloud.event.certs.public_key_hash |  | keyword |
 | trellix_edr_cloud.event.certs.type |  | keyword |

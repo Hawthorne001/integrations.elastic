@@ -12,10 +12,11 @@ This module has been tested against the latest Qualys VMDR version **v2**.
 
 The Qualys VMDR integration collects data for the following two events:
 
-| Event Type                    |
-|-------------------------------|
-| Asset Host Detection          |
-| Knowledge Base                |
+| Event Type           |
+|----------------------|
+| Asset Host Detection |
+| Knowledge Base       |
+| User Activity Log    |
 
 Reference for [Rest APIs](https://qualysguard.qg2.apps.qualys.com/qwebhelp/fo_portal/api_doc/index.htm) of Qualys VMDR.
 
@@ -43,7 +44,29 @@ You can run Elastic Agent inside a container, either with Fleet Server or standa
 
 There are some minimum requirements for running Elastic Agent and for more information, refer to the link [here](https://www.elastic.co/guide/en/fleet/current/elastic-agent-installation.html).
 
-The minimum **kibana.version** required is **8.9.0**.
+### Permissions
+
+#### Asset Host Detection
+
+| Role                    | Permission                                     |
+|-------------------------|------------------------------------------------|
+| _Managers_              | All VM scanned hosts in subscription           |
+| _Unit Managers_         | VM scanned hosts in user’s business unit       |
+| _Scanners_              | VM scanned hosts in user’s account             |
+| _Readers_               | VM scanned hosts in user’s account             |
+
+#### Knowledge Base
+
+_Managers_, _Unit Managers_, _Scanners_, _Readers_ have permission to download vulnerability data from the KnowledgeBase.
+
+#### User Activity Log
+
+| Role                    | Permission                                     |
+|-------------------------|------------------------------------------------|
+| _Managers_              | All actions taken by all users                 |
+| _Unit Managers_         | Actions taken by users in their business unit  |
+| _Scanners_              | Own actions only                               |
+| _Readers_               | Own actions only                               |
 
 ## Setup
 
@@ -74,6 +97,13 @@ The minimum **kibana.version** required is **8.9.0**.
    - interval
    - input parameters
 
+   or if you want to collect User Activity log data via REST API, then you have to put the following details:
+   - username
+   - password
+   - url
+   - initial interval
+   - interval
+
 **NOTE**: By default, the input parameter is set to "action=list".
 
 ## Data reference
@@ -97,3 +127,15 @@ This is the `Knowledge Base` dataset.
 {{event "knowledge_base"}}
 
 {{fields "knowledge_base"}}
+
+### User Activity
+
+This is the `User Activity` dataset. It connects to an [API](
+https://docs.qualys.com/en/vm/api/users/index.htm#t=activity%2Fexport_activity.htm)
+that exports the user activity log. 
+
+#### Example
+
+{{event "user_activity"}}
+
+{{fields "user_activity"}}

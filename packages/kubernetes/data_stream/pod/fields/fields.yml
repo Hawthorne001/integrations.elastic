@@ -46,7 +46,6 @@
           fields:
             - name: nanocores
               type: long
-              unit: byte
               metric_type: gauge
               description: |
                 CPU used nanocores
@@ -97,7 +96,6 @@
             - name: bytes
               type: long
               format: bytes
-              unit: percent
               metric_type: gauge
               description: |
                 Total memory available
@@ -107,7 +105,6 @@
             - name: bytes
               type: long
               format: bytes
-              unit: percent
               metric_type: gauge
               description: |
                 Total working set memory
@@ -125,7 +122,6 @@
             - name: bytes
               type: long
               format: bytes
-              unit: percent
               metric_type: gauge
               description: |
                 Total resident set size memory

@@ -22,6 +22,9 @@ processors:
     - set:
         field: observer.vendor
         value: Jamf
+    - set:
+        field: observer.type
+        value: Endpoint Security
 
 #######################
 ## ECS Event Mapping ##
@@ -50,7 +53,7 @@ processors:
         if: ctx.jamf_protect?.threat?.event?.action != null
     - set:
         field: event.reason
-        value: '{{jamf_protect.threat.event.eventType.description}}'
+        value: '{{{jamf_protect.threat.event.eventType.description}}}'
         if: ctx.jamf_protect?.threat?.event?.eventType?.description != null
         # ignore_missing: true
     - rename:
@@ -80,7 +83,7 @@ processors:
         ignore_missing: true
     - set:
         field: rule.description
-        value: '{{jamf_protect.threat.event.eventType.description}}'
+        value: '{{{jamf_protect.threat.event.eventType.description}}}'
         if: ctx.jamf_protect?.threat?.event?.eventType?.description != null
         # ignore_missing: true
     - rename:
@@ -217,14 +220,10 @@ processors:
         - jamf_protect
         - message
         ignore_missing: true
-    - remove:
-        field: event.original
-        if: ctx.tags == null || !(ctx.tags.contains('preserve_original_event'))
-        ignore_failure: true
     - script:
         description: Drops null/empty values recursively.
         lang: painless
-        source:
+        source: |
             boolean dropEmptyFields(Object object) {
             if (object == null || object == '') {
                 return true;
@@ -242,6 +241,10 @@ on_failure:
     - set:
         field: event.kind
         value: pipeline_error
+    - append:
+        field: tags
+        value: preserve_original_event
+        allow_duplicates: false
     - append:
         field: error.message
         value: '{{{ _ingest.on_failure_message }}}'

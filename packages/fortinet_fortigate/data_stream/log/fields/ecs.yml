@@ -43,6 +43,8 @@
 - external: ecs
   name: destination.user.name
 - external: ecs
+  name: destination.user.group.name
+- external: ecs
   name: dns.id
 - external: ecs
   name: dns.question.class
@@ -259,7 +261,13 @@
 - external: ecs
   name: url.domain
 - external: ecs
+  name: url.extension
+- external: ecs
   name: url.path
+- external: ecs
+  name: url.query
+- external: ecs
+  name: url.scheme
 - external: ecs
   name: user_agent.original
 - external: ecs
