@@ -1,4 +1,4 @@
-FROM golang:1.19
+FROM golang:1.25rc3
 
 COPY ./mongodb_atlas /go
 CMD ["./test"]
